@@ -8,10 +8,8 @@ export function createGetter(path) {
 
   return function(obj) {
     return arr.reduce((acc, val) => {
-      if (acc) {
-        if (val in acc) {
-          return acc[val];
-        }
+      if (acc && acc.hasOwnProperty(val)) {
+        return acc[val];
       }
     }, obj);
   };
