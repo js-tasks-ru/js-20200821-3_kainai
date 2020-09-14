@@ -9,16 +9,15 @@ export default class SortableTable {
       field: '',
       order: '',
     };
+
+    this.element = document.createElement('div');
+    this.element.classList.add('sortable-table');
     this.render();
   }
 
   update(newData) {
-    this.remove();
     this.data = newData;
     this.render();
-
-    const root = document.querySelector('#root');
-    root && root.append(this.element);
   }
 
   sort(field, order) {
@@ -71,8 +70,7 @@ export default class SortableTable {
       );
     });
 
-    return `<div class="sortable-table">
-                <div data-element="header" class="sortable-table__header sortable-table__row">
+    return `<div data-element="header" class="sortable-table__header sortable-table__row">
                     ${headers.join('')}
                 </div>
                 <div data-element="body" class="sortable-table__body">
@@ -92,18 +90,12 @@ export default class SortableTable {
   }
 
   render() {
-    const element = document.createElement('div');
-    element.innerHTML = this.renderTemplate();
-    this.element = element.firstChild;
-    this.subElements = this.getSubElements(element);
-  }
-
-  remove() {
-    this.element.remove();
+    this.element.innerHTML = this.renderTemplate();
+    this.subElements = this.getSubElements(this.element);
   }
 
   destroy() {
-    this.remove();
+    this.element.remove();
     this.subElements = {};
   }
 }

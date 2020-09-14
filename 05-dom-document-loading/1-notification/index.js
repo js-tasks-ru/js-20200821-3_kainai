@@ -15,12 +15,8 @@ export default class NotificationMessage {
     this.render();
   }
 
-  show(parent) {
-    if (!parent) {
-      document.body.append(this.element);
-    } else {
-      parent.append(this.element);
-    }
+  show(parent = document.body) {
+    parent.append(this.element);
 
     this.timeout = setTimeout(() => {
       this.remove();
